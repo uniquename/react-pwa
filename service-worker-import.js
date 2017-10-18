@@ -1,4 +1,4 @@
 
 console.log('imported');
 
-console.log(window);
+console.log('window');
