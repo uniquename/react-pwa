@@ -13,11 +13,11 @@ workboxSW.precache([
   },
   {
     "url": "/react-pwa/js/app.js",
-    "revision": "9cb0cacb9b0d3e024af5ebd541012fc5"
+    "revision": "50d7a454385c1ddfc5feca55f1d6dd94"
   },
   {
     "url": "/react-pwa/js/vendor.js",
-    "revision": "5d94460ede1ee45c858be2a8f597806e"
+    "revision": "ebc21f25a6811b965265ae2bea1a55b7"
   },
   {
     "url": "/react-pwa/js/workbox-google-analytics.prod.js",
