@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack')
 
 const constants = new webpack.DefinePlugin({
-  BASENAME: JSON.stringify('/my-aletta'),
+  BASENAME: JSON.stringify('/react-pwa'),
   PRODUCTION: JSON.stringify(true),
   'process.env': {
     NODE_ENV: JSON.stringify('production')
@@ -11,8 +11,8 @@ const constants = new webpack.DefinePlugin({
 
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const CopyWebpackPluginConfig = new CopyWebpackPlugin([
-  { from: 'src/server/server.crt', to: '' },
-  { from: 'src/server/server.key', to: '' },
+  { from: 'src/server/localhost.cert', to: '' },
+  { from: 'src/server/localhost.key', to: '' },
 //  { from: 'src/server/key.pem', to: '' },
 //  { from: 'src/server/cert.pem', to: '' },
 ])

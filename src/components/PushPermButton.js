@@ -20,13 +20,14 @@ class PushPermButton extends React.Component {
   constructor(props) {
     super(props);
 
-    console.log(Notification.permission);
-
     var value = '';
-    if (Notification.permission === 'granted') {
-      value = 'you r granted permissions'
-    } else {
-      value = 'give permission'
+
+    if (typeof Notification !== 'undefined'){
+      if (Notification.permission === 'granted') {
+        value = 'you r granted permissions'
+      } else {
+        value = 'give permission'
+      }
     }
 
     this.handleClick = this.handleClick.bind(this);
@@ -107,15 +108,17 @@ class PushPermButton extends React.Component {
   render() {
     return (
       <div>
-        <Button onClick={this.handleClick.bind(this)}>
-          {this.state.value}
-        </Button>
 
         <Switch
           checked={this.state.checked}
           onChange={this.handleChange('checked')}
           aria-label="checked"
         />
+
+        <Button onClick={this.handleClick.bind(this)}>
+          {this.state.value}
+        </Button>
+
       </div>
     );
   }

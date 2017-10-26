@@ -5,11 +5,11 @@ const PreloadWebpackPlugin = require('preload-webpack-plugin');
 
 const baseConfig = require('./webpack.config.js')
 
-const publicPath = '/my-aletta/'
+const publicPath = '/react-pwa/'
 const distFolder = __dirname + '/../build'
 
 const constants = new webpack.DefinePlugin({
-  BASENAME: JSON.stringify('/my-aletta'),
+  BASENAME: JSON.stringify('/react-pwa'),
   PRODUCTION: JSON.stringify(true),
   'process.env': {
     NODE_ENV: JSON.stringify('production')
@@ -24,7 +24,7 @@ const workboxPluginConfig = new workboxPlugin({
   swSrc: './src/service-worker.js',
   swDest: './build/service-worker.js',
   modifyUrlPrefix: {
-    '': '/my-aletta/'
+    '': '/react-pwa/'
   },
 })
 
@@ -70,7 +70,7 @@ const clientConfig = merge(baseConfig, {
       path.resolve(info.absoluteResourcePath).replace(/\\/g, '/'),
   },
   plugins: [
-    CleanWebpackPluginConfig,
+    //CleanWebpackPluginConfig,
     workboxPluginConfig,
     constants,
 
@@ -86,10 +86,7 @@ const clientConfig = merge(baseConfig, {
 
       //async: true,
       //minChunks: Infinity,
-      minChunks: function (module) {
-        // this assumes your vendor imports exist in the node_modules directory
-        return module.context && module.context.indexOf("node_modules") !== -1;
-      }
+      minChunks: ({ resource }) => /node_modules/.test(resource),
       // (with more entries, this ensures that no other module
       //  goes into the vendor chunk)
 
@@ -106,11 +103,11 @@ const clientConfig = merge(baseConfig, {
         return 'script';
       }
     }),
-    UglifyJsPluginConfig,
+    //UglifyJsPluginConfig,
     //BundleAnalyzerPluginConfig
   ]
 });
 
 const serverConfig = require('./webpack.server.js')
 //clientConfig, serverConfig
-module.exports = [ clientConfig, serverConfig ];
+module.exports = [ clientConfig ];

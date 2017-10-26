@@ -13,7 +13,7 @@ const WebpackPwaManifest = require('webpack-pwa-manifest')
 const WebpackPwaManifestConfig = new WebpackPwaManifest({
   name: 'My Progressive Web App',
   short_name: 'MyPWA',
-  start_url: '/my-aletta/index.html',
+  start_url: '/react-pwa/index.html',
   description: 'My awesome Progressive Web App!',
   background_color: '#ffffff',
   theme_color: '#000000',

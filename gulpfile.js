@@ -54,14 +54,14 @@ gulp.task('deploy', function() {
 
     rsyncConf.hostname = 'moebius.12deg.de'; // hostname
     rsyncConf.username = 'hendrik'; // ssh username
-    rsyncConf.destination = '/home/hendrik/projects/my-aletta'; // path where uploaded files go
+    rsyncConf.destination = '/home/hendrik/projects/react-pwa'; // path where uploaded files go
 
   // Production
   } else if (argv.production) {
 
     rsyncConf.hostname = 'moebius.12deg.de'; // hostname
     rsyncConf.username = 'hendrik'; // ssh username
-    rsyncConf.destination = '/home/hendrik/projects/my-aletta'; // path where uploaded files go
+    rsyncConf.destination = '/home/hendrik/projects/react-pwa'; // path where uploaded files go
 
   // Missing/Invalid Target
   } else {

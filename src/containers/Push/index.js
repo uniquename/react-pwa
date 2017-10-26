@@ -7,7 +7,7 @@ class Home extends Component {
     return (
       <div>
         <p>
-          To get started, edit <code>src/App.js</code> and save to reload.
+          Enable Push Notifications
         </p>
         <PushPermButton/>
       </div>
