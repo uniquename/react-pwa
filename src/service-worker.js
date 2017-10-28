@@ -18,7 +18,7 @@ workboxSW.router.registerRoute('https://fonts.googleapis.com/(.*)',
   })
 );
 
-const applicationServerPublicKey = '30866bc9-da39-4ce7-8c9c-3f410945db8b';
+const fcmServerPublicKey = 'AAAAJHzT65A:APA91bGoYxS_RcfZCD1OyN1vTVbLzJ5RfXDst-ySKo9uhD9hAfV-rpvxNccLx2Vf-DdME3YEgQdr1x7ydJdpY2f7LVew5YQOloX7WGYJE9vOelzvESY1JlvZzP7ZzbxES6HzxC6tQWD_';
 
 
 function urlB64ToUint8Array(base64String) {
@@ -64,7 +64,7 @@ self.addEventListener('notificationclick', function(event) {
 
 self.addEventListener('pushsubscriptionchange', function(event) {
   console.log('[Service Worker]: \'pushsubscriptionchange\' event fired.');
-  const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
+  const applicationServerKey = urlB64ToUint8Array(fcmServerPublicKey);
   event.waitUntil(
     self.registration.pushManager.subscribe({
       userVisibleOnly: true,

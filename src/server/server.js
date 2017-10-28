@@ -2,6 +2,7 @@ import express from 'express'
 import spdy from 'spdy'
 import fs from 'fs'
 import path from 'path'
+import compression from 'compression'
 import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { StaticRouter } from 'react-router-dom'
@@ -23,14 +24,16 @@ const httpPort = 80
 const httpsPort = 443
 */
 
+const domain = 'pwa.12deg.de'
 const httpPort = 80
 const httpsPort = 443
-const domain = 'localhost'
+//const domain = 'localhost'
 
 /*
 const httpPort = 8080
 const httpsPort = 8081
 */
+
 function handleRender(req, res) {
 
   const sheetsRegistry = new SheetsRegistry();
@@ -86,21 +89,26 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-const app = express();
+const app = express()
+
+app.use(compression())
 
 // Serve built files with static files middleware
-app.use('/react-pwa', express.static(path.join('build')));
-app.use('/service-worker.js', express.static(path.join('build/service-worker.js')));
+app.use('/react-pwa', express.static(path.join('build')))
+app.use('/js', express.static(path.join('build/js')))
+app.use('/service-worker.js', express.static(path.join('build/service-worker.js')))
+app.use('/manifest.json', express.static(path.join('build/manifest.json')))
+
 // Serve requests with our handleRender function
-app.get('*', handleRender);
+app.get('*', handleRender)
 
 const sslPath = "/etc/letsencrypt/live/pwa.12deg.de/"
 
 const options = {
-  key: fs.readFileSync( 'build/server/localhost.key' ),
-  cert: fs.readFileSync( 'build/server/localhost.cert' ),
-//  key: fs.readFileSync( sslPath + 'privkey.pem'),
-//  cert: fs.readFileSync( sslPath + 'fullchain.pem'),
+//  key: fs.readFileSync( 'build/server/localhost.key' ),
+//  cert: fs.readFileSync( 'build/server/localhost.cert' ),
+  key: fs.readFileSync( sslPath + 'privkey.pem'),
+  cert: fs.readFileSync( sslPath + 'fullchain.pem'),
   requestCert: false,
   rejectUnauthorized: false
 }
@@ -117,8 +125,7 @@ const http = express();
 
 // set up a route to redirect http to https
 http.get('*',function(req,res){
-    res.redirect('https://localhost'+req.url)
+    res.redirect('https://' + domain + req.url)
 })
 
-// have it listen on 8080
 http.listen(httpPort, domain);

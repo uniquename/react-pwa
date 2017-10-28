@@ -15,12 +15,14 @@ import AppShell from './AppShell'
 import ReactGA from 'react-ga'
 ReactGA.initialize('UA-59148422-2')
 
+
+
 const history = createBrowserHistory();
 
 // Create a theme instance.
 const theme = createMuiTheme({
   palette: {
-    primary: red,
+    primary: green,
     accent: red,
     type: 'light',
   },

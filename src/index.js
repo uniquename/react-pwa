@@ -40,5 +40,11 @@ render(
 );
 
 if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
-  navigator.serviceWorker.register('service-worker.js');
+  // Delay registration until after the page has loaded, to ensure that
+  // our precaching requests don't degrade the first visit experience.
+  // See https://developers.google.com/web/fundamentals/instant-and-offline/service-worker/registration
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('service-worker.js');
+  })
 }
+

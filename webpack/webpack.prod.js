@@ -5,11 +5,11 @@ const PreloadWebpackPlugin = require('preload-webpack-plugin');
 
 const baseConfig = require('./webpack.config.js')
 
-const publicPath = '/react-pwa/'
+const publicPath = '/'
 const distFolder = __dirname + '/../build'
 
 const constants = new webpack.DefinePlugin({
-  BASENAME: JSON.stringify('/react-pwa'),
+  BASENAME: JSON.stringify('/'),
   PRODUCTION: JSON.stringify(true),
   'process.env': {
     NODE_ENV: JSON.stringify('production')
@@ -23,9 +23,9 @@ const workboxPluginConfig = new workboxPlugin({
   globPatterns: ['**/*.{html,js}'],
   swSrc: './src/service-worker.js',
   swDest: './build/service-worker.js',
-  modifyUrlPrefix: {
-    '': '/react-pwa/'
-  },
+  //modifyUrlPrefix: {
+  //  '': '/'
+  //},
 })
 
 const CleanWebpackPlugin = require('clean-webpack-plugin')
@@ -70,7 +70,7 @@ const clientConfig = merge(baseConfig, {
       path.resolve(info.absoluteResourcePath).replace(/\\/g, '/'),
   },
   plugins: [
-    //CleanWebpackPluginConfig,
+    CleanWebpackPluginConfig,
     workboxPluginConfig,
     constants,
 
@@ -110,4 +110,4 @@ const clientConfig = merge(baseConfig, {
 
 const serverConfig = require('./webpack.server.js')
 //clientConfig, serverConfig
-module.exports = [ clientConfig ];
+module.exports = [ clientConfig, serverConfig ];

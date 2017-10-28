@@ -5,6 +5,10 @@ import { withStyles } from 'material-ui/styles'
 import green from 'material-ui/colors/green'
 import Switch from 'material-ui/Switch'
 
+import fire from './firebase';
+
+const messaging = fire.messaging();
+
 const styles = {
   bar: {},
   checked: {
@@ -55,7 +59,7 @@ class PushPermButton extends React.Component {
 
   handleChange = name => (event, checked) => {
     this.setState({ [name]: checked });
-    this.handleClick();
+    this.fcmPermissions();
     console.log('test');
   };
 
@@ -105,6 +109,48 @@ class PushPermButton extends React.Component {
     });
   }
 
+  fcmPermissions(){
+
+    messaging.requestPermission()
+      .then(function() {
+        console.log('Notification permission granted.');
+        // TODO(developer): Retrieve an Instance ID token for use with FCM.
+
+        // Get Instance ID token. Initially this makes a network call, once retrieved
+        // subsequent calls to getToken will return from cache.
+        messaging.getToken()
+        .then(function(currentToken) {
+          if (currentToken) {
+            sendTokenToServer(currentToken);
+            updateUIForPushEnabled(currentToken);
+          } else {
+            // Show permission request.
+            console.log('No Instance ID token available. Request permission to generate one.');
+            // Show permission UI.
+            updateUIForPushPermissionRequired();
+            setTokenSentToServer(false);
+          }
+        })
+        .catch(function(err) {
+          console.log('An error occurred while retrieving token. ', err);
+          //this.showToken('Error retrieving Instance ID token. ', err);
+          //setTokenSentToServer(false);
+        });
+
+
+      })
+      .catch(function(err) {
+        console.log('Unable to get permission to notify.', err);
+      });
+
+  }
+
+  showToken(currentToken) {
+    // Show token in console and UI.
+    var tokenElement = document.querySelector('#token');
+    tokenElement.textContent = currentToken;
+  }
+
   render() {
     return (
       <div>
@@ -115,9 +161,7 @@ class PushPermButton extends React.Component {
           aria-label="checked"
         />
 
-        <Button onClick={this.handleClick.bind(this)}>
-          {this.state.value}
-        </Button>
+        {this.state.value}
 
       </div>
     );
