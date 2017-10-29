@@ -75,9 +75,6 @@ const FaviconsWebpackPluginConfig = new FaviconsWebpackPlugin({
   }
 })
 
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
-const UglifyJSPluginConfig = new UglifyJSPlugin()
-
 module.exports = {
   //entry: './src/index.js',
   entry: {
@@ -95,6 +92,5 @@ module.exports = {
     HtmlWebpackPluginConfig,
     WebpackPwaManifestConfig,
     CopyWebpackPluginConfig,
-    //UglifyJSPluginConfig
   ]
 }

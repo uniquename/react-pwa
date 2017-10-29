@@ -29,20 +29,49 @@ const workboxPluginConfig = new workboxPlugin({
 })
 
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-// the path(s) that should be cleaned
-let pathsToClean = [ distFolder ]
-// the clean options to use
-let cleanOptions = {
-  root:     __dirname + '/..',
-  verbose:  true,
-  dry:      false
-}
-const CleanWebpackPluginConfig = new CleanWebpackPlugin(pathsToClean, cleanOptions)
+const CleanWebpackPluginConfig = new CleanWebpackPlugin(
+  [ distFolder ],
+  {
+    root:     __dirname + '/..',
+    verbose:  true,
+    dry:      false
+  }
+)
 
 const UglifyJsPluginConfig = new webpack.optimize.UglifyJsPlugin({
   minimize: true,
   output: {
     comments: false
+  }
+})
+
+const CommonsChunkPlugin = new webpack.optimize.CommonsChunkPlugin({
+  name: "vendor",
+  // (the commons chunk name)
+
+  // filename: "vendor.js",
+  // (the filename of the commons chunk)
+
+  // minChunks: 3,
+  // (Modules must be shared between 3 entries)
+
+  //async: true,
+  //minChunks: Infinity,
+  minChunks: ({ resource }) => /node_modules/.test(resource),
+  // (with more entries, this ensures that no other module
+  //  goes into the vendor chunk)
+
+  // chunks: ["pageA", "pageB"],
+  // (Only use these entries)
+})
+
+const PreloadWebpackPluginConfig = new PreloadWebpackPlugin({
+  rel: 'preload',
+  as(entry) {
+    if (/\.css$/.test(entry)) return 'style';
+    if (/\.woff$/.test(entry)) return 'font';
+    if (/\.png$/.test(entry)) return 'image';
+    return 'script';
   }
 })
 
@@ -73,37 +102,9 @@ const clientConfig = merge(baseConfig, {
     CleanWebpackPluginConfig,
     workboxPluginConfig,
     constants,
-
-    new webpack.optimize.CommonsChunkPlugin({
-      name: "vendor",
-      // (the commons chunk name)
-
-      // filename: "vendor.js",
-      // (the filename of the commons chunk)
-
-      // minChunks: 3,
-      // (Modules must be shared between 3 entries)
-
-      //async: true,
-      //minChunks: Infinity,
-      minChunks: ({ resource }) => /node_modules/.test(resource),
-      // (with more entries, this ensures that no other module
-      //  goes into the vendor chunk)
-
-      // chunks: ["pageA", "pageB"],
-      // (Only use these entries)
-    }),
-
-    new PreloadWebpackPlugin({
-      rel: 'preload',
-      as(entry) {
-        if (/\.css$/.test(entry)) return 'style';
-        if (/\.woff$/.test(entry)) return 'font';
-        if (/\.png$/.test(entry)) return 'image';
-        return 'script';
-      }
-    }),
-    //UglifyJsPluginConfig,
+    CommonsChunkPlugin,
+    PreloadWebpackPluginConfig,
+    UglifyJsPluginConfig,
     //BundleAnalyzerPluginConfig
   ]
 });

@@ -121,12 +121,11 @@ spdy
   }
 )
 
-// set up plain http server
+// Allways redirect to https
+// Set up plain http server
 const http = express();
-
-// set up a route to redirect http to https
+// Set up a route to redirect http to https
 http.get('*',function(req,res){
     res.redirect('https://' + domain + req.url)
 })
-
 http.listen(httpPort, domain);

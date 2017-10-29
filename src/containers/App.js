@@ -1,14 +1,10 @@
 import React, { Component } from 'react'
 
-import { Router, Route, Link, Switch } from 'react-router-dom'
+import { Router } from 'react-router-dom'
 import createBrowserHistory from 'history/createBrowserHistory'
-
-//import { useRouterHistory } from 'react-router'
-import { createHistory } from 'history'
 
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import { green, red } from 'material-ui/colors';
-
 
 import AppShell from './AppShell'
 
@@ -27,7 +23,6 @@ const theme = createMuiTheme({
 });
 
 class App extends Component {
-
   render (){
     return (
       <MuiThemeProvider theme={theme}>

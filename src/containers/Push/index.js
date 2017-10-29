@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
+import fire from '../../components/firebase'
 import PushPermButton from '../../components/PushPermButton'
+
 
 const messaging = fire.messaging();
 
@@ -10,7 +12,7 @@ messaging.onMessage(function(payload) {
 });
 
 
-class Home extends Component {
+class Push extends Component {
   render() {
     return (
       <div>
@@ -23,4 +25,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default Push;

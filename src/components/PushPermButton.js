@@ -43,6 +43,7 @@ class PushPermButton extends React.Component {
       console.log(currentToken)
       console.log(that)
       that.setState({token: currentToken});
+      that.setState({checked: true});
       that.state.token = currentToken
     })
 
@@ -141,22 +142,27 @@ class PushPermButton extends React.Component {
 
         {this.state.value}
 
-        <div> Token:
+        <p> Token:
           {this.state.token}
-        </div>
+        </p>
 
-          <pre>{`
-curl -X POST -H "Authorization: key=AAAAJHzT65A:APA91bGoYxS_RcfZCD1OyN1vTVbLzJ5RfXDst-ySKo9uhD9hAfV-rpvxNccLx2Vf-DdME3YEgQdr1x7ydJdpY2f7LVew5YQOloX7WGYJE9vOelzvESY1JlvZzP7ZzbxES6HzxC6tQWD_" -H "Content-Type: application/json" -d '{
-  "notification": {
-    "title": "Portugal vs. Denmark",
-    "body": "5 to 1",
-    "icon": "firebase-logo.png",
-    "click_action": "https://pwa.12deg.de/push"
-  },
-  "to": "${this.state.token}"
-}' "https://fcm.googleapis.com/fcm/send"
-          `}</pre>
+        <p>
+          Use this curl command to send a message via fcm.googleapis.com to this client.<br/>
+          Note: it has no "notification" object, else setBackgroundMessageHandler() would be ignored.<br/>
+          See: https://github.com/firebase/quickstart-js/issues/71<br/>
+        </p>
 
+        <pre>{`
+          curl -X POST -H "Authorization: key=AAAAJHzT65A:APA91bGoYxS_RcfZCD1OyN1vTVbLzJ5RfXDst-ySKo9uhD9hAfV-rpvxNccLx2Vf-DdME3YEgQdr1x7ydJdpY2f7LVew5YQOloX7WGYJE9vOelzvESY1JlvZzP7ZzbxES6HzxC6tQWD_" -H "Content-Type: application/json" -d '{
+            "data": {
+              "title": "Portugal vs. Denmark",
+              "body": "5 to 1",
+              "icon": "firebase-logo.png",
+              "click_action": "https://pwa.12deg.de/push"
+            },
+            "to": "${this.state.token}"
+          }' "https://fcm.googleapis.com/fcm/send"
+        `}</pre>
 
       </div>
     );

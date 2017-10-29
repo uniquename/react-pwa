@@ -9,18 +9,6 @@ const defines = new Webpack.DefinePlugin({
   PRODUCTION: JSON.stringify(false)
 })
 
-const workboxPlugin = require('workbox-webpack-plugin')
-const workboxPluginConfig = new workboxPlugin({
-  directoryIndex: '/test',
-  globDirectory: './build/',
-  globPatterns: ['**/*.{html,js}'],
-  swSrc: './src/service-worker.js',
-  swDest: './build/service-worker.js',
-  //modifyUrlPrefix: {
-  //  '': '/dev/'
-  //},
-})
-
 // Webpack uses `publicPath` to determine where the app is being served from.
 // In development, we always serve from the root. This makes config easier.
 const publicPath = '/'
@@ -49,7 +37,6 @@ module.exports = merge(baseConfig, {
   },
   plugins: [
     //new DashboardPlugin(),
-    workboxPluginConfig,
     defines
   ]
 });

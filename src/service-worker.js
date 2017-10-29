@@ -17,4 +17,3 @@ workboxSW.router.registerRoute('https://fonts.googleapis.com/(.*)',
   })
 );
 
-
