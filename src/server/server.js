@@ -97,6 +97,7 @@ app.use(compression())
 app.use('/react-pwa', express.static(path.join('build')))
 app.use('/js', express.static(path.join('build/js')))
 app.use('/service-worker.js', express.static(path.join('build/service-worker.js')))
+app.use('/firebase-messaging-sw.js', express.static(path.join('build/firebase-messaging-sw.js')))
 app.use('/manifest.json', express.static(path.join('build/manifest.json')))
 
 // Serve requests with our handleRender function

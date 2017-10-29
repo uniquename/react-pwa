@@ -33,6 +33,9 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const CopyWebpackPluginConfig = new CopyWebpackPlugin([
   { from: require.resolve('workbox-sw'), to: 'js/workbox-sw.prod.js' },
   { from: require.resolve('workbox-google-analytics'), to: 'js/workbox-google-analytics.prod.js' },
+  { from: require.resolve('firebase/firebase-app.js'), to: 'js/firebase-app.js' },
+  { from: require.resolve('firebase/firebase-messaging.js'), to: 'js/firebase-messaging.js' },
+  { from: 'src/firebase-messaging-sw.js', to: 'firebase-messaging-sw.js' },
   { from: 'public/assets/badge.png', to: 'images/' },
   { from: 'public/assets/icon.png', to: 'images/' },
 ])

@@ -110,4 +110,4 @@ const clientConfig = merge(baseConfig, {
 
 const serverConfig = require('./webpack.server.js')
 //clientConfig, serverConfig
-module.exports = [ clientConfig, serverConfig ];
+module.exports = [ clientConfig ];

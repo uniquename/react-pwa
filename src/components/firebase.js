@@ -1,6 +1,6 @@
 import firebase from 'firebase'
 
-var config = {
+const config = {
   apiKey: "AIzaSyC9YMHlkgvLLKR_KFW6DhGXWmuxBZyFadc",
   authDomain: "react-pwa-32342.firebaseapp.com",
   databaseURL: "https://react-pwa-32342.firebaseio.com",
@@ -9,6 +9,16 @@ var config = {
   messagingSenderId: "156713085840"
 };
 
-var fire = firebase.initializeApp(config);
+const fire = firebase.initializeApp(config);
+
+console.log(fire);
+
+const messaging = fire.messaging();
+
+messaging.onMessage(function(payload) {
+  console.log("Message received. ", payload);
+  // ...
+});
+
 
 export default fire;
