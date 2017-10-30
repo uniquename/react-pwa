@@ -17,3 +17,13 @@ workboxSW.router.registerRoute('https://fonts.googleapis.com/(.*)',
   })
 );
 
+workboxSW.router.registerRoute(
+  'https://hn.algolia.com/api/v1/(.*)',
+  workboxSW.strategies.staleWhileRevalidate({
+    cacheName: 'hn',
+    cacheExpiration: {
+      maxAgeSeconds: 60, // cache for one minute
+    },
+    //cacheableResponse: {statuses: [0, 200]},
+  })
+);

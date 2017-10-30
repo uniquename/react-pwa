@@ -9,9 +9,15 @@ import { green, red } from 'material-ui/colors';
 import AppShell from './AppShell'
 
 import ReactGA from 'react-ga'
-ReactGA.initialize('UA-59148422-2')
+ReactGA.initialize('UA-59148422-3')
 
 const history = createBrowserHistory();
+
+history.listen((location, action) => {
+  console.log(location)
+    ReactGA.set({ page: location.pathname });
+    ReactGA.pageview(location.pathname);
+});
 
 // Create a theme instance.
 const theme = createMuiTheme({
@@ -22,11 +28,17 @@ const theme = createMuiTheme({
   },
 });
 
+function logPageView() {
+  console.log(window.location);
+  ReactGA.set({ page: window.location.pathname + window.location.search });
+  ReactGA.pageview(window.location.pathname + window.location.search);
+}
+
 class App extends Component {
   render (){
     return (
       <MuiThemeProvider theme={theme}>
-        <Router history={history} >
+        <Router history={history} onUpdate={logPageView}>
           <AppShell/>
         </Router>
       </MuiThemeProvider>
