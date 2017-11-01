@@ -36,7 +36,7 @@ const httpPort = 8080
 const httpsPort = 8081
 */
 
-function handleRender(req, res) {
+function handleRender(request, response) {
 
   const sheetsRegistry = new SheetsRegistry();
 
@@ -51,8 +51,6 @@ function handleRender(req, res) {
 
   // Configure JSS
   const jss = create(preset());
-  // const jss = create({ plugins: [...preset().plugins, rtl()] }); // in-case you're supporting rtl
-
   jss.options.createGenerateClassName = createGenerateClassName;
 
   const context = {};
@@ -61,7 +59,7 @@ function handleRender(req, res) {
   const html = renderToString(
     <JssProvider registry={sheetsRegistry} jss={jss}>
       <MuiThemeProvider theme={theme} sheetsManager={new Map()}>
-        <StaticRouter location={ req.url } context={ context }>
+        <StaticRouter location={ request.url } context={ context }>
           <AppShell />
         </StaticRouter>
       </MuiThemeProvider>
@@ -78,16 +76,51 @@ function handleRender(req, res) {
     var doc = data.replace(/<div id="root"><\/div>/, `<div id="root">${html}</div>`).
               replace(/<style id="jss-server-side"><\/style>/, `<style id="jss-server-side">${css}<\/style>`)
 
-    console.log('rendered');
-    //const document = renderFullPage(html, css)
-    // Sends the response back to the client
-    //sleep(0).then(() => {
-      res.send(doc)
-    //});
+
+
+    var jsFile = fs.readFileSync('./build/js/app.js')
+    var stream = response.push('/js/app.js', {
+      status: 200, // optional
+      method: 'GET', // optional
+      request: {
+        accept: '*/*'
+      },
+      response: {
+        'content-type': 'application/javascript'
+      }
+    })
+    stream.on('error', function() {
+    })
+    stream.end(jsFile)
+
+    pushStream('app.js', response)
+    pushStream('vendor.js', response)
+
+    response.send(doc)
+
   });
 }
 
+function pushStream(name, response){
+  var jsFile = fs.readFileSync('./build/js/' + name)
+  var stream = response.push('/js/' + name, {
+    status: 200, // optional
+    method: 'GET', // optional
+    request: {
+      accept: '*/*'
+    },
+    response: {
+      'content-type': 'application/javascript'
+    }
+  })
+  stream.on('error', function() {
+  })
+  stream.end(jsFile)
+}
+
+
 function sleep(ms) {
+      //sleep(0).then(() => {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
@@ -130,7 +163,7 @@ spdy
 // Set up plain http server
 const http = express();
 // Set up a route to redirect http to https
-http.get('*',function(req,res){
-    res.redirect('https://' + domain + req.url)
+http.get('*',function(request, result){
+    result.redirect('https://' + domain + request.url)
 })
 http.listen(httpPort, domain);
