@@ -104,7 +104,7 @@ const clientConfig = merge(baseConfig, {
     constants,
     CommonsChunkPlugin,
     PreloadWebpackPluginConfig,
-    UglifyJsPluginConfig,
+    //UglifyJsPluginConfig,
     //BundleAnalyzerPluginConfig
   ]
 });

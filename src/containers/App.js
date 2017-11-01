@@ -10,13 +10,13 @@ import AppShell from './AppShell'
 
 import ReactGA from 'react-ga'
 ReactGA.initialize('UA-59148422-3')
+//ReactGA.initialize('UA-59148422-3', { debug: true })
 
 const history = createBrowserHistory();
 
 history.listen((location, action) => {
-  console.log(location)
-    ReactGA.set({ page: location.pathname });
-    ReactGA.pageview(location.pathname);
+  ReactGA.set({ page: location.pathname + location.search });
+  ReactGA.pageview(location.pathname + location.search);
 });
 
 // Create a theme instance.
@@ -28,17 +28,11 @@ const theme = createMuiTheme({
   },
 });
 
-function logPageView() {
-  console.log(window.location);
-  ReactGA.set({ page: window.location.pathname + window.location.search });
-  ReactGA.pageview(window.location.pathname + window.location.search);
-}
-
 class App extends Component {
   render (){
     return (
       <MuiThemeProvider theme={theme}>
-        <Router history={history} onUpdate={logPageView}>
+        <Router history={history}>
           <AppShell/>
         </Router>
       </MuiThemeProvider>

@@ -23,14 +23,16 @@ import AppShell from '../containers/AppShell'
 const domain = 'pwa.12deg.de'
 const httpPort = 80
 const httpsPort = 443
-const domain = 'localhost'
+
+const domain = 'pwa.12deg.de'
 */
 
 
 const httpPort = 80
 const httpsPort = 443
+const domain = 'localhost'
 
-const domain = 'pwa.12deg.de'
+
 /*
 const httpPort = 8080
 const httpsPort = 8081
@@ -77,21 +79,6 @@ function handleRender(request, response) {
               replace(/<style id="jss-server-side"><\/style>/, `<style id="jss-server-side">${css}<\/style>`)
 
 
-
-    var jsFile = fs.readFileSync('./build/js/app.js')
-    var stream = response.push('/js/app.js', {
-      status: 200, // optional
-      method: 'GET', // optional
-      request: {
-        accept: '*/*'
-      },
-      response: {
-        'content-type': 'application/javascript'
-      }
-    })
-    stream.on('error', function() {
-    })
-    stream.end(jsFile)
 
     pushStream('app.js', response)
     pushStream('vendor.js', response)
@@ -144,10 +131,10 @@ app.get('*', handleRender)
 const sslPath = "/etc/letsencrypt/live/pwa.12deg.de/"
 
 const options = {
-//  key: fs.readFileSync( 'build/server/localhost.key' ),
-//  cert: fs.readFileSync( 'build/server/localhost.cert' ),
-  key: fs.readFileSync( sslPath + 'privkey.pem'),
-  cert: fs.readFileSync( sslPath + 'fullchain.pem'),
+  key: fs.readFileSync( 'build/server/localhost.key' ),
+  cert: fs.readFileSync( 'build/server/localhost.cert' ),
+//  key: fs.readFileSync( sslPath + 'privkey.pem'),
+//  cert: fs.readFileSync( sslPath + 'fullchain.pem'),
   requestCert: false,
   rejectUnauthorized: false
 }

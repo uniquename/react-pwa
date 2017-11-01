@@ -88,7 +88,7 @@ module.exports = {
     ]
   },
   plugins: [
-    FaviconsWebpackPluginConfig,
+    //FaviconsWebpackPluginConfig,
     HtmlWebpackPluginConfig,
     WebpackPwaManifestConfig,
     CopyWebpackPluginConfig,
