@@ -19,24 +19,9 @@ import { green, red } from 'material-ui/colors'
 
 import AppShell from '../containers/AppShell'
 
-/*
-const domain = 'pwa.12deg.de'
 const httpPort = 80
 const httpsPort = 443
-
-const domain = 'pwa.12deg.de'
-*/
-
-
-const httpPort = 80
-const httpsPort = 443
-const domain = 'localhost'
-
-
-/*
-const httpPort = 8080
-const httpsPort = 8081
-*/
+const domain = DOMAIN
 
 function handleRender(request, response) {
 
@@ -77,8 +62,6 @@ function handleRender(request, response) {
     // Inserts the rendered React HTML into our main div
     var doc = data.replace(/<div id="root"><\/div>/, `<div id="root">${html}</div>`).
               replace(/<style id="jss-server-side"><\/style>/, `<style id="jss-server-side">${css}<\/style>`)
-
-
 
     pushStream('app.js', response)
     pushStream('vendor.js', response)
@@ -128,13 +111,9 @@ app.use('/manifest.json', express.static(path.join('build/manifest.json')))
 // Serve requests with our handleRender function
 app.get('*', handleRender)
 
-const sslPath = "/etc/letsencrypt/live/pwa.12deg.de/"
-
 const options = {
-  key: fs.readFileSync( 'build/server/localhost.key' ),
-  cert: fs.readFileSync( 'build/server/localhost.cert' ),
-//  key: fs.readFileSync( sslPath + 'privkey.pem'),
-//  cert: fs.readFileSync( sslPath + 'fullchain.pem'),
+  key: fs.readFileSync( PATH_KEY ),
+  cert: fs.readFileSync( PATH_CERT ),
   requestCert: false,
   rejectUnauthorized: false
 }
@@ -154,3 +133,4 @@ http.get('*',function(request, result){
     result.redirect('https://' + domain + request.url)
 })
 http.listen(httpPort, domain);
+

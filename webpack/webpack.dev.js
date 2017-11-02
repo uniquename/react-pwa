@@ -4,7 +4,7 @@ const Webpack = require('webpack')
 
 const baseConfig = require('./webpack.config.js')
 
-const defines = new Webpack.DefinePlugin({
+const constants = new Webpack.DefinePlugin({
   BASENAME: JSON.stringify('/'),
   PRODUCTION: JSON.stringify(false)
 })
@@ -37,6 +37,6 @@ module.exports = merge(baseConfig, {
   },
   plugins: [
     //new DashboardPlugin(),
-    defines
+    constants
   ]
 });

@@ -6,7 +6,6 @@
   "homepage": "https://pwa.12deg.de",
   "dependencies": {
     "babel-plugin-lodash": "^3.2.11",
-    "cross-env": "^5.1.0",
     "express": "^4.16.2",
     "firebase": "^4.6.0",
     "isomorphic-fetch": "^2.2.1",
@@ -69,14 +68,10 @@
   "scripts": {
     "start": "yarn start-dev",
     "start-dev": "webpack-dev-server --config=webpack/webpack.dev",
-    "start-server": "node build/server/server.js",
-    "serve": "yarn start-server",
-    "build": "yarn build-prod",
+    "serve": "node build/server/server.js",
     "build-prod": "webpack --config=webpack/webpack.prod",
-    "build-server": "webpack --config=webpack/webpack.server",
-    "predeploy": "yarn build",
-    "deploy": "gh-pages -d build",
-    "gh": "gh-pages -d build",
+    "build-live": "webpack --config=webpack/webpack.server",
+    "build-local": "webpack --config=webpack/webpack.server.local",
     "stats": "webpack --config=webpack/webpack.prod --profile --json > stats.json",
     "lint": "eslint . --ext .js --ext .jsx --ignore-path .gitignore --cache"
   }
