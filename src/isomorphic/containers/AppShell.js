@@ -27,15 +27,15 @@ import asyncComponent from '../components/asyncComponent'
 
 
 import Home from './Home/'
-import Page from './Page/'
+import News from './News/'
 import Push from './Push/'
 
 /*
 const Home = asyncComponent(() => import('./Home')
   .then(module => module.default), { name: 'Home' });
 
-const Page = asyncComponent(() => import('./Page')
-  .then(module => module.default), { name: 'Page' });
+const News = asyncComponent(() => import('./News')
+  .then(module => module.default), { name: 'News' });
 
 const Push = asyncComponent(() => import('./Push')
   .then(module => module.default), { name: 'Push' });
@@ -127,12 +127,12 @@ class AppShell extends Component {
             <ListItem
               button
               component={Link}
-              to="/page"
+              to="/news"
               onClick={this.handleDrawerToggle}>
               <ListItemIcon>
                 <StarIcon />
               </ListItemIcon>
-              <ListItemText primary="Page" />
+              <ListItemText primary="News" />
             </ListItem>
 
             <ListItem
@@ -146,12 +146,6 @@ class AppShell extends Component {
                 <ListItemText primary="Push" />
             </ListItem>
 
-            <ListItem button onClick={this.handleDrawerToggle}>
-              <ListItemIcon>
-                <DraftsIcon />
-              </ListItemIcon>
-              <ListItemText primary="Drafts" />
-            </ListItem>
           </div>
 
         </List>
@@ -209,7 +203,7 @@ class AppShell extends Component {
 
             <Switch>
               <Route exact path="/" component={Home}/>
-              <Route path="/page" component={Page}/>
+              <Route path="/news" component={News}/>
               <Route path="/push" component={Push}/>
             </Switch>
 

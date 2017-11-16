@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
+import './styles.css';
 
 const API = 'https://hn.algolia.com/api/v1/search?query=';
 const DEFAULT_QUERY = 'redux';
@@ -32,14 +33,16 @@ class Page extends Component {
 
     if (isLoading) {
       return (
-        <Skeleton count={10}/>
+        <div className="loading-skeleton">
+          <Skeleton count={20}/>
+        </div>
       );
     }
 
     return (
       <div>
         {hits.map(hit =>
-          <div key={hit.objectID}>
+          <div className="news" key={hit.objectID}>
             <a href={hit.url} target="_blank">{hit.title}</a>
           </div>
         )}

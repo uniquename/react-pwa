@@ -110,7 +110,7 @@ class PushPermButton extends React.Component {
   // Send the Instance ID token your application server
   sendTokenToServer(currentToken) {
     if (!this.isTokenSentToServer()) {
-      console.log('Sending token to server... ', currentToken)
+      console.log('Sending token to server... ')
       // TODO: Send the current token to your server.
       this.setState({
         token : false,
@@ -125,7 +125,7 @@ class PushPermButton extends React.Component {
   deleteTokenFromServer(){
     if (this.isTokenSentToServer()) {
       console.log('Deleting token from server...')
-      // TODO: Delete token from server
+      // TODO: Delete token from server.
       this.setState({
         token : false,
         value: 'Receive Push Notifications'
