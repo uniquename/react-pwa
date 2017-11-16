@@ -25,12 +25,12 @@ import ReportIcon from 'material-ui-icons/Report';
 
 import asyncComponent from '../components/asyncComponent'
 
-/*
+
 import Home from './Home/'
 import Page from './Page/'
 import Push from './Push/'
-*/
 
+/*
 const Home = asyncComponent(() => import('./Home')
   .then(module => module.default), { name: 'Home' });
 
@@ -39,6 +39,7 @@ const Page = asyncComponent(() => import('./Page')
 
 const Push = asyncComponent(() => import('./Push')
   .then(module => module.default), { name: 'Push' });
+*/
 
 const drawerWidth = 240;
 
@@ -173,7 +174,7 @@ class AppShell extends Component {
                 <MenuIcon />
               </IconButton>
               <Typography type="title" color="inherit" noWrap>
-                Responsive drawer
+                react PWA
               </Typography>
             </Toolbar>
           </AppBar>
@@ -218,5 +219,6 @@ class AppShell extends Component {
     );
   }
 }
-
+//
+//
 export default withStyles(styles, { withTheme: true })(AppShell);

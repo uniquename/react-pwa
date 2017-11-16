@@ -17,7 +17,7 @@ import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles'
 import createGenerateClassName from 'material-ui/styles/createGenerateClassName'
 import { green, red } from 'material-ui/colors'
 
-import AppShell from '../containers/AppShell'
+import AppShell from '../isomorphic/containers/AppShell'
 
 const httpPort = 80
 const httpsPort = 443
@@ -88,19 +88,12 @@ function pushStream(name, response){
   stream.end(jsFile)
 }
 
-
-function sleep(ms) {
-      //sleep(0).then(() => {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 const app = express()
 
 app.use(logger('dev'))
 app.use(compression())
 
 // Serve built files with static files middleware
-//app.use('/react-pwa', express.static(path.join('build')))
 app.use('/js', express.static(path.join('build/js')))
 app.use('/icons', express.static(path.join('build/icons')))
 app.use('/images', express.static(path.join('build/images')))
@@ -108,7 +101,7 @@ app.use('/service-worker.js', express.static(path.join('build/service-worker.js'
 app.use('/firebase-messaging-sw.js', express.static(path.join('build/firebase-messaging-sw.js')))
 app.use('/manifest.json', express.static(path.join('build/manifest.json')))
 
-// Serve requests with our handleRender function
+// Serve requests with handleRender function
 app.get('*', handleRender)
 
 const options = {

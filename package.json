@@ -16,6 +16,7 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-ga": "^2.3.5",
+    "react-loading-skeleton": "^0.3.2",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
@@ -69,8 +70,8 @@
     "start": "yarn start-dev",
     "start-dev": "webpack-dev-server --config=webpack/webpack.dev",
     "serve": "node build/server/server.js",
-    "build-prod": "webpack --config=webpack/webpack.prod",
-    "build-live": "webpack --config=webpack/webpack.server",
+    "build": "webpack --config=webpack/webpack.prod",
+    "build-live": "webpack --config=webpack/webpack.server.prod",
     "build-local": "webpack --config=webpack/webpack.server.local",
     "stats": "webpack --config=webpack/webpack.prod --profile --json > stats.json",
     "lint": "eslint . --ext .js --ext .jsx --ignore-path .gitignore --cache"

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Skeleton from 'react-loading-skeleton';
+
 
 const API = 'https://hn.algolia.com/api/v1/search?query=';
 const DEFAULT_QUERY = 'redux';
@@ -29,7 +31,9 @@ class Page extends Component {
     const { hits, isLoading } = this.state;
 
     if (isLoading) {
-      return <p>Loading ...</p>;
+      return (
+        <Skeleton count={10}/>
+      );
     }
 
     return (

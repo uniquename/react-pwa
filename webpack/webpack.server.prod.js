@@ -13,8 +13,8 @@ const constants = new webpack.DefinePlugin({
   'process.env': {
     NODE_ENV: JSON.stringify('production')
   },
-  PATH_CERT: JSON.stringify( sslPath + 'privkey.pem' ),
-  PATH_KEY: JSON.stringify( sslPath + 'fullchain.pem'),
+  PATH_CERT: JSON.stringify( sslPath + 'fullchain.pem' ),
+  PATH_KEY: JSON.stringify( sslPath + 'privkey.pem' ),
   DOMAIN: JSON.stringify('pwa.12deg.de')
 })
 
