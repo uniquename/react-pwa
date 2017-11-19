@@ -27,19 +27,19 @@ import asyncComponent from '../components/asyncComponent'
 
 
 import Home from './Home/'
+/*
 import News from './News/'
 import Push from './Push/'
 
-/*
 const Home = asyncComponent(() => import('./Home')
   .then(module => module.default), { name: 'Home' });
-
+*/
 const News = asyncComponent(() => import('./News')
   .then(module => module.default), { name: 'News' });
 
 const Push = asyncComponent(() => import('./Push')
   .then(module => module.default), { name: 'Push' });
-*/
+
 
 const drawerWidth = 240;
 

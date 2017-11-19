@@ -91,7 +91,7 @@ const clientConfig = merge(baseConfig, {
     // containing code from all our entry points, and the Webpack runtime.
     filename: 'js/[name].js',
     // There are also additional JS chunk files if you use code splitting.
-    chunkFilename: 'js/[chunkhash].chunk.js',
+    chunkFilename: 'js/[name].chunk.js',
     // This is the URL that app is served from. We use "/" in development.
     publicPath: publicPath,
     // Point sourcemap entries to original disk location (format as URL on Windows)
