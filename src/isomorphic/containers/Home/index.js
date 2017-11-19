@@ -1,21 +1,18 @@
 import React, { Component } from 'react'
 
-import './styles.css'
-
 import asyncComponent from '../../components/asyncComponent'
 
-import compA from './compA'
+import CompA from './CompA'
 
-//
-const compB = asyncComponent(() => import('./compB')
-  .then(module => module.default), { name: 'compB' });
+const CompB = asyncComponent(() => import('./CompB')
+  .then(module => module.default), { name: 'CompB' });
 
 class Home extends Component {
   render() {
     return (
       <div>
-        <compA/>
-        <compB/>
+        <CompA/>
+        <CompB/>
       </div>
     )
   }

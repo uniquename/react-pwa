@@ -17,6 +17,8 @@ import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles'
 import createGenerateClassName from 'material-ui/styles/createGenerateClassName'
 import { green, red } from 'material-ui/colors'
 
+import WithStylesContext from '../isomorphic/components/WithStylesContext';
+
 import AppShell from '../isomorphic/containers/AppShell'
 
 const httpPort = 80
@@ -40,31 +42,38 @@ function handleRender(request, response) {
   const jss = create(preset());
   jss.options.createGenerateClassName = createGenerateClassName;
 
+  const css = [];
   const context = {};
+
+  console.log(css);
+  console.log(context);
 
   // Renders our Hello component into an HTML string
   const html = renderToString(
     <JssProvider registry={sheetsRegistry} jss={jss}>
       <MuiThemeProvider theme={theme} sheetsManager={new Map()}>
-        <StaticRouter location={ request.url } context={ context }>
-          <AppShell />
-        </StaticRouter>
+        <WithStylesContext onInsertCss={styles => css.push(styles._getCss())}>
+          <StaticRouter location={ request.url } context={ context }>
+            <AppShell />
+          </StaticRouter>
+        </WithStylesContext>
       </MuiThemeProvider>
     </JssProvider>
   );
 
   // Grab the CSS from our sheetsRegistry.
-  const css = sheetsRegistry.toString()
+  const materialCss = sheetsRegistry.toString()
 
   // Load contents of index.html
   fs.readFile('./build/index.html', 'utf8', function (err, data) {
     if (err) throw err;
     // Inserts the rendered React HTML into our main div
     var doc = data.replace(/<div id="root"><\/div>/, `<div id="root">${html}</div>`).
-              replace(/<style id="jss-server-side"><\/style>/, `<style id="jss-server-side">${css}<\/style>`)
+              replace(/<style id="jss-server-side"><\/style>/, `<style id="jss-server-side">${materialCss}<\/style>`).
+              replace(/<style id="css-server-side"><\/style>/, `<style id="css-server-side">${css.join('')}<\/style>`)
 
-    pushStream('app.js', response)
-    pushStream('vendor.js', response)
+    //pushStream('app.js', response)
+    //pushStream('vendor.js', response)
 
     response.send(doc)
 
