@@ -21,7 +21,7 @@ const workboxPluginConfig = new workboxPlugin({
   directoryIndex: '/test',
   globDirectory: './build/',
   globPatterns: ['**/*.{html,js}'],
-  swSrc: './src/service-worker.js',
+  swSrc: './src/client/service-worker.js',
   swDest: './build/service-worker.js',
   //modifyUrlPrefix: {
   //  '': '/'
@@ -45,24 +45,24 @@ const UglifyJsPluginConfig = new webpack.optimize.UglifyJsPlugin({
   }
 })
 
-const CommonsChunkPlugin = new webpack.optimize.CommonsChunkPlugin({
+const CommonsChunkPluginA = new webpack.optimize.CommonsChunkPlugin({
+  // the commons chunk name
   name: "vendor",
-  // (the commons chunk name)
-
-  // filename: "vendor.js",
-  // (the filename of the commons chunk)
-
-  // minChunks: 3,
-  // (Modules must be shared between 3 entries)
-
+  // the filename of the commons chunk
+  filename: "vendor.js",
   //async: true,
   //minChunks: Infinity,
   minChunks: ({ resource }) => /node_modules/.test(resource),
-  // (with more entries, this ensures that no other module
-  //  goes into the vendor chunk)
+})
 
-  // chunks: ["pageA", "pageB"],
-  // (Only use these entries)
+const CommonsChunkPluginB = new webpack.optimize.CommonsChunkPlugin({
+  // the commons chunk name
+  name: "vendor.firebase",
+  // the filename of the commons chunk
+  filename: "vendor.firebase.js",
+  //async: true,
+  //minChunks: Infinity,
+  minChunks: ({ resource }) => /node_modules/.test(resource),
 })
 
 const PreloadWebpackPluginConfig = new PreloadWebpackPlugin({
@@ -80,7 +80,11 @@ const BundleAnalyzerPluginConfig = new BundleAnalyzerPlugin();
 
 
 const clientConfig = merge(baseConfig, {
-
+  entry: {
+    app: './src/client/index.js',
+    'vendor': ['react'],
+    'vendor.firebase': ['firebase']
+  },
   output: {
     // Next line is not used in dev but WebpackDevServer crashes without it:
     path: distFolder,
@@ -99,16 +103,16 @@ const clientConfig = merge(baseConfig, {
       path.resolve(info.absoluteResourcePath).replace(/\\/g, '/'),
   },
   plugins: [
-    CleanWebpackPluginConfig,
+    //CleanWebpackPluginConfig,
     workboxPluginConfig,
     constants,
-    CommonsChunkPlugin,
+    CommonsChunkPluginA,
+    CommonsChunkPluginB,
     PreloadWebpackPluginConfig,
     UglifyJsPluginConfig,
     //BundleAnalyzerPluginConfig
   ]
 });
 
-const serverConfig = require('./webpack.server.js')
-//clientConfig, serverConfig
+
 module.exports = [ clientConfig ];

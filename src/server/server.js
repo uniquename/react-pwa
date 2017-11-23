@@ -19,7 +19,7 @@ import { green, red } from 'material-ui/colors'
 
 import WithStylesContext from '../isomorphic/components/WithStylesContext';
 
-import AppShell from '../isomorphic/containers/AppShell'
+import AppShell from '../isomorphic/AppShell'
 
 const httpPort = 80
 const httpsPort = 443

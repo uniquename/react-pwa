@@ -11,10 +11,10 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 
 const WebpackPwaManifest = require('webpack-pwa-manifest')
 const WebpackPwaManifestConfig = new WebpackPwaManifest({
-  name: 'My Progressive Web App',
-  short_name: 'MyPWA',
+  name: 'react Progressive Web App',
+  short_name: 'react PWA',
   start_url: '/index.html',
-  description: 'My awesome Progressive Web App!',
+  description: 'react Progressive Web App',
   background_color: '#ffffff',
   theme_color: '#000000',
   gcm_sender_id: '103953800507',
@@ -35,7 +35,7 @@ const CopyWebpackPluginConfig = new CopyWebpackPlugin([
   { from: require.resolve('workbox-google-analytics'), to: 'js/workbox-google-analytics.prod.js' },
   { from: require.resolve('firebase/firebase-app.js'), to: 'js/firebase-app.js' },
   { from: require.resolve('firebase/firebase-messaging.js'), to: 'js/firebase-messaging.js' },
-  { from: 'src/firebase-messaging-sw.js', to: 'firebase-messaging-sw.js' },
+  { from: 'src/client/firebase-messaging-sw.js', to: 'firebase-messaging-sw.js' },
   { from: 'public/assets/badge.png', to: 'images/' },
   { from: 'public/assets/icon.png', to: 'images/' },
 ])
@@ -76,11 +76,7 @@ const FaviconsWebpackPluginConfig = new FaviconsWebpackPlugin({
 })
 
 module.exports = {
-  //entry: './src/index.js',
-  entry: {
-    vendor: ["react", "react-dom"],
-    app: './src/index.js'
-  },
+
   module: {
     loaders: [
       { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },

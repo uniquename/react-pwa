@@ -23,10 +23,10 @@ import MailIcon from 'material-ui-icons/Mail';
 import DeleteIcon from 'material-ui-icons/Delete';
 import ReportIcon from 'material-ui-icons/Report';
 
-import asyncComponent from '../components/asyncComponent'
+import asyncComponent from './components/asyncComponent'
 
 
-import Home from './Home/'
+import Home from './containers/Home/'
 /*
 import News from './News/'
 import Push from './Push/'
@@ -34,10 +34,10 @@ import Push from './Push/'
 const Home = asyncComponent(() => import('./Home')
   .then(module => module.default), { name: 'Home' });
 */
-const News = asyncComponent(() => import('./News')
+const News = asyncComponent(() => import('./containers/News')
   .then(module => module.default), { name: 'News' });
 
-const Push = asyncComponent(() => import('./Push')
+const Push = asyncComponent(() => import('./containers/Push')
   .then(module => module.default), { name: 'Push' });
 
 

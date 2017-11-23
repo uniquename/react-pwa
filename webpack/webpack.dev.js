@@ -15,6 +15,9 @@ const publicPath = '/'
 const distFolder = __dirname + '/../build'
 
 module.exports = merge(baseConfig, {
+  entry: {
+    app: './src/client/index.js'
+  },
   output: {
     // Next line is not used in dev but WebpackDevServer crashes without it:
     path: distFolder,

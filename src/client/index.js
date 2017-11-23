@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM, { render } from 'react-dom'
 
-import App from './isomorphic/containers/App'
+import App from '../isomorphic/App'
 
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles'
 import createPalette from 'material-ui/styles/createPalette'
