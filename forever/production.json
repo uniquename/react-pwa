@@ -1,0 +1,8 @@
+{
+  // Comments are supported
+  "uid": "reactpwa",
+  "append": true,
+  "watch": true,
+  "script": "build/server/server.js",
+  "sourceDir": "/home/hendrik/projects/react-pwa"
+}
