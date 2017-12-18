@@ -44,7 +44,7 @@ if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
   // our precaching requests don't degrade the first visit experience.
   // See https://developers.google.com/web/fundamentals/instant-and-offline/service-worker/registration
   window.addEventListener('load', function() {
-    navigator.serviceWorker.register('service-worker.js');
+    navigator.serviceWorker.register('../service-worker.js');
   })
 }
 
