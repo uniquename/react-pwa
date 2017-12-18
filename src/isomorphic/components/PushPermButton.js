@@ -25,7 +25,6 @@ class PushPermButton extends React.Component {
     super(props)
 
     var that = this
-
     var value = ''
     var fcmToken = ''
 
@@ -33,7 +32,6 @@ class PushPermButton extends React.Component {
       if (Notification.permission === 'granted' && this.isTokenSentToServer()) {
         messaging.getToken()
         .then(function(currentToken) {
-
           if (currentToken) {
             that.setState({
               token: currentToken,
@@ -44,14 +42,9 @@ class PushPermButton extends React.Component {
             that.sendTokenToServer(currentToken)
           }
         })
-
       } else {
         value = 'Receive Push Notifications'
       }
-    }
-
-    if (this.isTokenSentToServer()) {
-
     }
 
     this.state = {
@@ -98,8 +91,6 @@ class PushPermButton extends React.Component {
           that.showToken('Error retrieving Instance ID token. ', err);
           that.setTokenSentToServer(false);
         });
-
-
       })
       .catch(function(err) {
         // Permission were not granted
@@ -173,7 +164,6 @@ class PushPermButton extends React.Component {
             <p>
               Use this curl command to send a message via fcm.googleapis.com to this client.<br/><br/>
               Note: it has no "notification" object, else setBackgroundMessageHandler() would be ignored. See https://github.com/firebase/quickstart-js/issues/71<br/>
-
             </p>
 
             <pre>{`
@@ -189,7 +179,6 @@ class PushPermButton extends React.Component {
             `}</pre>
           </div>
         }
-
       </div>
     )
   }

@@ -6,7 +6,7 @@ import createBrowserHistory from 'history/createBrowserHistory'
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import { green, red } from 'material-ui/colors';
 
-import AppShell from './AppShell'
+import AppShell from '../isomorphic/AppShell'
 
 import ReactGA from 'react-ga'
 ReactGA.initialize('UA-59148422-3')

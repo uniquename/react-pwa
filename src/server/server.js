@@ -4,6 +4,8 @@ import logger from 'morgan'
 import fs from 'fs'
 import path from 'path'
 import compression from 'compression'
+import { minify } from 'html-minifier'
+
 import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { StaticRouter } from 'react-router-dom'
@@ -12,12 +14,11 @@ import { SheetsRegistry } from 'react-jss/lib/jss'
 import JssProvider from 'react-jss/lib/JssProvider'
 import { create } from 'jss'
 import preset from 'jss-preset-default'
-// import rtl from 'jss-rtl'; // in-case you're supporting rtl
+
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles'
 import createGenerateClassName from 'material-ui/styles/createGenerateClassName'
 import { green, red } from 'material-ui/colors'
 
-import WithStylesContext from '../isomorphic/components/WithStylesContext';
 
 import AppShell from '../isomorphic/AppShell'
 
@@ -41,22 +42,15 @@ function handleRender(request, response) {
   // Configure JSS
   const jss = create(preset());
   jss.options.createGenerateClassName = createGenerateClassName;
-
-  const css = [];
   const context = {};
-
-  console.log(css);
-  console.log(context);
 
   // Renders our Hello component into an HTML string
   const html = renderToString(
     <JssProvider registry={sheetsRegistry} jss={jss}>
       <MuiThemeProvider theme={theme} sheetsManager={new Map()}>
-        <WithStylesContext onInsertCss={styles => css.push(styles._getCss())}>
           <StaticRouter location={ request.url } context={ context }>
             <AppShell />
           </StaticRouter>
-        </WithStylesContext>
       </MuiThemeProvider>
     </JssProvider>
   );
@@ -69,13 +63,12 @@ function handleRender(request, response) {
     if (err) throw err;
     // Inserts the rendered React HTML into our main div
     var doc = data.replace(/<div id="root"><\/div>/, `<div id="root">${html}</div>`).
-              replace(/<style id="jss-server-side"><\/style>/, `<style id="jss-server-side">${materialCss}<\/style>`).
-              replace(/<style id="css-server-side"><\/style>/, `<style id="css-server-side">${css.join('')}<\/style>`)
+              replace(/<style id="jss-server-side"><\/style>/, `<style id="jss-server-side">${materialCss}<\/style>`)
 
-    //pushStream('app.js', response)
-    //pushStream('vendor.js', response)
+    pushStream('app.js', response)
+    pushStream('vendor.js', response)
 
-    response.send(doc)
+    response.send(minify(doc))
 
   });
 }

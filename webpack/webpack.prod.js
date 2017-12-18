@@ -45,21 +45,11 @@ const UglifyJsPluginConfig = new webpack.optimize.UglifyJsPlugin({
   }
 })
 
-const CommonsChunkPluginA = new webpack.optimize.CommonsChunkPlugin({
+const CommonsChunkPlugin = new webpack.optimize.CommonsChunkPlugin({
   // the commons chunk name
   name: "vendor",
   // the filename of the commons chunk
-  filename: "vendor.js",
-  //async: true,
-  //minChunks: Infinity,
-  minChunks: ({ resource }) => /node_modules/.test(resource),
-})
-
-const CommonsChunkPluginB = new webpack.optimize.CommonsChunkPlugin({
-  // the commons chunk name
-  name: "vendor.firebase",
-  // the filename of the commons chunk
-  filename: "vendor.firebase.js",
+  //filename: "vendor.js",
   //async: true,
   //minChunks: Infinity,
   minChunks: ({ resource }) => /node_modules/.test(resource),
@@ -82,8 +72,7 @@ const BundleAnalyzerPluginConfig = new BundleAnalyzerPlugin();
 const clientConfig = merge(baseConfig, {
   entry: {
     app: './src/client/index.js',
-    'vendor': ['react'],
-    'vendor.firebase': ['firebase']
+    'vendor': ['react']
   },
   output: {
     // Next line is not used in dev but WebpackDevServer crashes without it:
@@ -95,19 +84,18 @@ const clientConfig = merge(baseConfig, {
     // containing code from all our entry points, and the Webpack runtime.
     filename: 'js/[name].js',
     // There are also additional JS chunk files if you use code splitting.
-    chunkFilename: 'js/[name].chunk.js',
+    chunkFilename: 'js/[chunkhash].chunk.js',
     // This is the URL that app is served from. We use "/" in development.
     publicPath: publicPath,
     // Point sourcemap entries to original disk location (format as URL on Windows)
-    devtoolModuleFilenameTemplate: info =>
-      path.resolve(info.absoluteResourcePath).replace(/\\/g, '/'),
+    //devtoolModuleFilenameTemplate: info =>
+      //path.resolve(info.absoluteResourcePath).replace(/\\/g, '/'),
   },
   plugins: [
-    //CleanWebpackPluginConfig,
+    CleanWebpackPluginConfig,
     workboxPluginConfig,
     constants,
-    CommonsChunkPluginA,
-    CommonsChunkPluginB,
+    CommonsChunkPlugin,
     PreloadWebpackPluginConfig,
     UglifyJsPluginConfig,
     //BundleAnalyzerPluginConfig
