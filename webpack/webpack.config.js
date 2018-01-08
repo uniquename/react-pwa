@@ -9,6 +9,12 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   inject: 'body'
 })
 
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
+const ScriptExtHtmlWebpackPluginConfig = new ScriptExtHtmlWebpackPlugin({
+  sync: 'vendor.js',
+  defaultAttribute: 'async'
+})
+
 const WebpackPwaManifest = require('webpack-pwa-manifest')
 const WebpackPwaManifestConfig = new WebpackPwaManifest({
   name: 'react Progressive Web App',
@@ -86,6 +92,7 @@ module.exports = {
   plugins: [
     //FaviconsWebpackPluginConfig,
     HtmlWebpackPluginConfig,
+    ScriptExtHtmlWebpackPluginConfig,
     WebpackPwaManifestConfig,
     CopyWebpackPluginConfig,
   ]
