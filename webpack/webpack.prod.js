@@ -71,8 +71,7 @@ const BundleAnalyzerPluginConfig = new BundleAnalyzerPlugin();
 
 const clientConfig = merge(baseConfig, {
   entry: {
-    app: './src/client/index.js',
-    'vendor': ['react']
+    app: './src/client/index.js'
   },
   output: {
     // Next line is not used in dev but WebpackDevServer crashes without it:

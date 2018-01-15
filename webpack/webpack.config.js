@@ -11,8 +11,7 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
 const ScriptExtHtmlWebpackPluginConfig = new ScriptExtHtmlWebpackPlugin({
-  sync: 'vendor.js',
-  defaultAttribute: 'async'
+  defaultAttribute: 'defer'
 })
 
 const WebpackPwaManifest = require('webpack-pwa-manifest')
